@@ -68,6 +68,7 @@ int main(int argc, char *argv[])
     nsIgnoreLocal = 1;
     naRouter = 1;
     maxHops = MAXMAXHOPS;
+    srcLinkAddr = in6addr_any;
     
     // Logging
     listLog=0;
