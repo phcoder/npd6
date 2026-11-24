@@ -24,8 +24,8 @@
 VERSION=1.1.0
 
 CC=gcc
-CFLAGS= -Wall -g -O3 
-LDFLAGS=
+CFLAGS= -Wall -g -O3 -D_FORTIFY_SOURCE=2 -fstack-protector-strong -Wformat -Werror=format-security
+LDFLAGS= -Wl,-z,relro -Wl,-z,now
 SOURCES=main.c icmp6.c util.c ip6.c config.c expintf.c exparser.c
 OBJECTS=$(SOURCES:.c=.o)
 HEADERS=includes.h npd6.h
@@ -49,13 +49,13 @@ clean:
 
 distclean:
 	rm -rf $(OBJECTS) $(EXECUTABLE)
-	rm -rf debian/etc/
-	rm -rf debian/usr/
-	rm -rf debian/DEBIAN/
-	rm -rf debian/npd6/
-	rm -rf debian/files
-	rm -rf debian/npd6.*
-	rm -f npd6*.deb
+#	rm -rf debian/etc/
+#	rm -rf debian/usr/
+#	rm -rf debian/DEBIAN/
+#	rm -rf debian/npd6/
+#	rm -rf debian/files
+#	rm -rf debian/npd6.*
+#	rm -f npd6*.deb
 
 install: all
 	mkdir -p $(DESTDIR)/etc/init.d/
@@ -65,8 +65,8 @@ install: all
 	cp etc/npd6 $(DESTDIR)/etc/init.d/npd6
 	cp etc/npd6.conf.sample $(DESTDIR)/etc/npd6.conf.sample
 	cp npd6 $(DESTDIR)$(INSTALL_PREFIX)/bin/
-	cp man/npd6.conf.5.gz $(DESTDIR)$(MAN_PREFIX)/man5/
-	cp man/npd6.8.gz $(DESTDIR)$(MAN_PREFIX)/man8/
+	#cp man/npd6.conf.5.gz $(DESTDIR)$(MAN_PREFIX)/man5/
+	#cp man/npd6.8.gz $(DESTDIR)$(MAN_PREFIX)/man8/
 
 ubuntu: all
 	mkdir $(DEBIAN)/DEBIAN/
