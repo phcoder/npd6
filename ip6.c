@@ -82,7 +82,6 @@ void processNS( int ifIndex,
     unsigned int                multicastNS;
     
     // For outgoing NA
-    struct in6_addr             srcLinkAddr = IN6ADDR_ANY_INIT;
     struct in6_pktinfo          *pkt_info;
     struct sockaddr_in6         sockaddr;
     unsigned char               nabuff[MAX_PKT_BUFF];
@@ -280,7 +279,8 @@ void processNS( int ifIndex,
         
         pkt_info = (struct in6_pktinfo *)CMSG_DATA(cmsg);
         
-        // Set src (sending) addr and outgoing i/f for the datagram            
+        // Set src (sending) addr and outgoing i/f for the datagram.
+        // srcLinkAddr comes from the config file; :: (the default) lets the kernel choose.
         memcpy(&pkt_info->ipi6_addr, &srcLinkAddr, sizeof(struct in6_addr) );
         pkt_info->ipi6_ifindex = interfaceIdx;        
         

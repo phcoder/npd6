@@ -49,6 +49,7 @@ int             nsIgnoreLocal;      // From config file NPD6LOCALIG
 int             naRouter;           // From config file NPD6ROUTERNA
 int             maxHops;            // From config file NPD6MAXHOPS
 int             collectTargets;     // From config file NPD6TARGETS
+struct in6_addr srcLinkAddr;        // From config file NPD6SRCADDR (:: = kernel chooses)
 
 // Target tree data structures etc
 void            *tRoot;
@@ -108,6 +109,7 @@ int main(int argc, char *argv[])
     nsIgnoreLocal = 1;
     naRouter = 1;
     maxHops = MAXMAXHOPS;
+    srcLinkAddr = in6addr_any;
     
     // Logging
     listLog=0;

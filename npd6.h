@@ -98,6 +98,7 @@ extern int             nsIgnoreLocal;      // From config file NPD6LOCALIG
 extern int             naRouter;           // From config file NPD6ROUTERNA
 extern int             maxHops;            // From config file NPD6MAXHOPS
 extern int             collectTargets;     // From config file NPD6TARGETS
+extern struct in6_addr srcLinkAddr;        // From config file NPD6SRCADDR (:: = kernel chooses)
 
 // Target tree data structures etc
 extern void            *tRoot;

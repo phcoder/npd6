@@ -53,6 +53,7 @@ int readConfig(char *configFileName)
     // Ensure global set correctly
     interfaceCount = 0;
     pollErrorLimit = 10;    // Vaguely sensible default
+    srcLinkAddr = in6addr_any;  // Default: let the kernel pick the NA source addr
 
     if ((configFileFD = fopen(configFileName, "r")) == NULL)
     {
@@ -383,6 +384,27 @@ int readConfig(char *configFileName)
                         return 1;
                     }
                     break;                    
+
+                case NPD6SRCADDR:
+                    {
+                        struct in6_addr addr;
+                        char            addrstr[INET6_ADDRSTRLEN];
+
+                        if ( build_addr( righttoken, &addr) != 1 )
+                        {
+                            flog(LOG_ERR, "srcLinkAddr - invalid IPv6 address: %s", righttoken);
+                            return 1;
+                        }
+                        if ( IN6_IS_ADDR_MULTICAST( &addr) )
+                        {
+                            flog(LOG_ERR, "srcLinkAddr - must not be a multicast address: %s", righttoken);
+                            return 1;
+                        }
+                        srcLinkAddr = addr;
+                        inet_ntop(AF_INET6, &srcLinkAddr, addrstr, sizeof(addrstr));
+                        flog(LOG_INFO, "srcLinkAddr set to %s", addrstr);
+                    }
+                    break;
             }
     } while (len);
 

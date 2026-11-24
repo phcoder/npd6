@@ -36,8 +36,9 @@
 #define NPD6LISTLOG     10
 #define NPD6ERRORTH     11
 #define NPD6RALOG       12
+#define NPD6SRCADDR     13
 
-#define CONFIGTOTAL     13
+#define CONFIGTOTAL     14
 #define NOMATCH         -1
 char *configStrs[CONFIGTOTAL] =
 {
@@ -53,7 +54,8 @@ char *configStrs[CONFIGTOTAL] =
     "exprlist",
     "listlogging",
     "pollErrorLimit",
-    "ralogging"
+    "ralogging",
+    "srcLinkAddr"
 };
 
 // For logging system

@@ -92,6 +92,12 @@ routerNA = true
 // NAs may be silently ignored! Best left as-is...
 maxHops = 255
 
+// (Default: ::) Source IPv6 address used for outgoing Neighbor
+// Advertisements. The default of :: lets the kernel choose (normally
+// the link-local address of the outgoing interface). If set, the
+// address must be configured on the host or the NAs will fail to send.
+//srcLinkAddr = fe80::1
+
 // (Default: 20) Set to 0 to disable this threshold completely.
 // If more than this number of consecutive poll errors occur
 // terminate the process. e.g. an interface goes away permanently.
